@@ -1,0 +1,68 @@
+package stepdefs;
+
+import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.junit.Assert;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import javax.validation.constraints.AssertTrue;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class Stepdef {
+    private final String REST_API_URL = "http://localhost:8080";
+    private final String ADD_ENDPOINT = "/api/report/master/add";
+    private Boolean isAdded = false;
+    private ReportMasterDTO reportMasterDTOResponse = new ReportMasterDTO();
+
+    @Given("^A running restful controller application$")
+    public void a_running_restful_controller_application()  {
+        //To Do Later
+        // Check whether application is up and running.Add a health end point.
+       // AssertTrue()
+    }
+
+    @When("^A post request is received to add a new valid record in the table$")
+    public void a_post_request_is_received_to_add_a_new_valid_record_in_the_table() throws URISyntaxException {
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        final String baseUrl = REST_API_URL+ADD_ENDPOINT;
+        URI uri = new URI(baseUrl);
+
+        ReportMasterDTO reportMasterDTO = new ReportMasterDTO("warehouse1","execution",
+                "IBM","08:00:00","false");
+
+        ResponseEntity<ReportMasterDTO> result = restTemplate.postForEntity(uri, reportMasterDTO, ReportMasterDTO.class);
+        //Verify request succeed
+        Assert.assertEquals(200, result.getStatusCodeValue());
+        if(result.getStatusCodeValue() == 200){
+            isAdded = true;
+        }
+        reportMasterDTOResponse = result.getBody();
+    }
+
+    @Then("^the record is added$")
+    public void the_record_is_added() {
+        assertTrue(isAdded, "true");
+    }
+
+    @Then("^the record data is sent back$")
+    public void the_record_data_is_sent_back()  {
+        assertEquals("IBM", reportMasterDTOResponse.getServer());
+        assertEquals("execution", reportMasterDTOResponse.getExecution());
+        assertEquals("false", reportMasterDTOResponse.getIsInteractive());
+        assertEquals("warehouse1", reportMasterDTOResponse.getReportName());
+        assertEquals("08:00:00", reportMasterDTOResponse.getIntervalTime());
+
+
+    }
+}

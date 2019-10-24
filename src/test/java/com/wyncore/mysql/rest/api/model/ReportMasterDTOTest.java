@@ -1,0 +1,35 @@
+package com.wyncore.mysql.rest.api.model;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@ExtendWith(MockitoExtension.class)
+class ReportMasterDTOTest {
+
+    @Test
+    public void testReportMasterDTO(){
+
+        ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
+        reportMasterDTO.setExecution("execution");
+        reportMasterDTO.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+        reportMasterDTO.setIntervalTime("08:00:00");
+        reportMasterDTO.setIsInteractive("false");
+        reportMasterDTO.setServer("IBM");
+        reportMasterDTO.setReportName("warehouse1");
+        assertEquals("execution", reportMasterDTO.getExecution());
+        assertEquals(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"), reportMasterDTO.getId());
+        assertEquals("false", reportMasterDTO.getIsInteractive());
+        assertEquals("IBM", reportMasterDTO.getServer());
+        assertEquals("false", reportMasterDTO.getIsInteractive());
+        assertEquals("08:00:00", reportMasterDTO.getIntervalTime());
+        assertEquals("warehouse1", reportMasterDTO.getReportName());
+
+
+    }
+
+}
