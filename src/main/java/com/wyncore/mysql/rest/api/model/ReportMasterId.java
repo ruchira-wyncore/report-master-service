@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * As repost_master table has  composite key UUID and report name , this is an ID class which is used
+ * by JPA whenever the tables use composite keys.This class defines the composite key.
+ */
 public  class ReportMasterId implements Serializable {
 
     private UUID reportId;

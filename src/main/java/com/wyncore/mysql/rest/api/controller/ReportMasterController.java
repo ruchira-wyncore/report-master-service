@@ -12,12 +12,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/report/master")
+/**
+ * This is a restful controller which accepts the API calls.
+ */
 public class ReportMasterController {
 
     @Autowired
     private ReportMasterService reportMasterService;
 
-    //Add a new report in report_master table
+    //Add a new report in report_master table using post
     @RequestMapping(
             value = "/add",
             produces = "application/json",

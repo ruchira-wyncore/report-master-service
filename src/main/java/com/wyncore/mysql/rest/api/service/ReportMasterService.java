@@ -4,14 +4,14 @@ import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 
 @Service
+/**
+ * This is the service class which is used to save the record in report master table.
+ */
 public class ReportMasterService {
 
     @Autowired

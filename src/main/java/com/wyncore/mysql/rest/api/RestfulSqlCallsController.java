@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 /**
- * This is a springboot application  which acts as restful end point for  handling sql calls.
+ * This is a springboot application  which acts as restful end point for  handling mysql api calls.
  */
 @ComponentScan(basePackages = { "com.wyncore.mysql.rest.api" })
 @EntityScan("com.wyncore.mysql.rest.api.model")

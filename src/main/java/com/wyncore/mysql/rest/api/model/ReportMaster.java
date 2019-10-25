@@ -15,6 +15,10 @@ import java.util.UUID;
 @Entity
 @IdClass(ReportMasterId.class)
 @Table(name = "report_master")
+/**
+ * This is a POJO class for report-master fields in the mysql table.Each field is
+ * mapped to the one in the report_master table
+ */
 public class ReportMaster implements Serializable {
 
     @Id

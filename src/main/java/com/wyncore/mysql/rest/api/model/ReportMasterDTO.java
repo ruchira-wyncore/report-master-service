@@ -1,9 +1,7 @@
 package com.wyncore.mysql.rest.api.model;
 
 import java.util.UUID;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,8 +9,10 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
+/**
+ * This is the json class which  is used to pass the report master object as json objects over the API calls
+ */
 public class ReportMasterDTO {
-    /* used to send database id */
 
     /* used to send  database id */
     private UUID id;
