@@ -18,8 +18,8 @@ import java.util.UUID;
 public class ReportMaster implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "report_id", columnDefinition = "BINARY(16)")
     private UUID reportId;
 
@@ -41,22 +41,34 @@ public class ReportMaster implements Serializable {
 
     @Column(name = "interval_time")
     @NotNull(message = "interval_time can not be empty.")
-    private Time intervalTime;
+    private int intervalTime;
 
     @Column(name = "interactive")
     @NotNull(message = "interactive can not be empty.")
     private Boolean isInteractive;
 
+    @Column(name = "start_time")
+    @NotNull(message = "start_time can not be empty.")
+    private Time startTime;
+
+    @Column(name = "end_time")
+    @NotNull(message = "end_time can not be empty.")
+    private Time endTime;
+
 
     public ReportMaster(UUID reportId, @NotBlank String reportName, @NotBlank String execution,
-                        @NotBlank String server, @NotBlank Time intervalTime,
-                        @NotBlank Boolean interactive) {
+                        @NotBlank String server, @NotBlank int intervalTime,
+                        @NotBlank Boolean interactive, @NotBlank Time startTime,
+                        @NotBlank Time endTime) {
         this.reportId = reportId;
         this.reportName = reportName;
         this.execution = execution;
         this.server = server;
         this.intervalTime = intervalTime;
         this.isInteractive = interactive;
+        this.startTime = startTime;
+        this.endTime = endTime;
+
     }
 
     public ReportMaster() {
@@ -94,11 +106,11 @@ public class ReportMaster implements Serializable {
         this.server = server;
     }
 
-    public Time getIntervalTime() {
+    public int getIntervalTime() {
         return intervalTime;
     }
 
-    public void setIntervalTime(Time intervalTime) {
+    public void setIntervalTime(int intervalTime) {
         this.intervalTime = intervalTime;
     }
 
@@ -108,6 +120,22 @@ public class ReportMaster implements Serializable {
 
     public void setInteractive(Boolean interactive) {
         this.isInteractive = interactive;
+    }
+
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
     }
 
     @Override
@@ -120,12 +148,15 @@ public class ReportMaster implements Serializable {
                 Objects.equals(execution, that.execution) &&
                 Objects.equals(server, that.server) &&
                 Objects.equals(intervalTime, that.intervalTime) &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime) &&
                 Objects.equals(isInteractive, that.isInteractive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reportId, reportName, execution, server, intervalTime, isInteractive);
+        return Objects.hash(reportId, reportName, execution, server,
+                            intervalTime, isInteractive, startTime, endTime);
     }
 
 }

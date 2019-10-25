@@ -12,25 +12,31 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(Include.NON_NULL)
 public class ReportMasterDTO {
-/* used to send database id */
+    /* used to send database id */
 
-        /* used to send  database id */
-        private UUID id;
+    /* used to send  database id */
+    private UUID id;
 
-        @JsonProperty("report_name")
-        private String reportName;
+    @JsonProperty("report_name")
+    private String reportName;
 
-        @JsonProperty("execution")
-        private String execution;
+    @JsonProperty("execution")
+    private String execution;
 
-        @JsonProperty("server")
-        private String server;
+    @JsonProperty("server")
+    private String server;
 
-        @JsonProperty("interval_time")
-        private String intervalTime;
+    @JsonProperty("interval_time")
+    private String intervalTime;
 
-        @JsonProperty("interactive")
-        private String isInteractive;
+    @JsonProperty("interactive")
+    private String isInteractive;
+
+    @JsonProperty("start_time")
+    private String startTime;
+
+    @JsonProperty("end_time")
+    private String endTime;
 
     public UUID getId() {
         return id;
@@ -80,14 +86,19 @@ public class ReportMasterDTO {
         this.isInteractive = isInteractive;
     }
 
-    public ReportMasterDTO( String reportName, String execution, String server, String intervalTime, String isInteractive) {
-        this.reportName = reportName;
-        this.execution = execution;
-        this.server = server;
-        this.intervalTime = intervalTime;
-        this.isInteractive = isInteractive;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public ReportMasterDTO() {
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

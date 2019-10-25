@@ -38,8 +38,12 @@ public class Stepdef {
         final String baseUrl = REST_API_URL+ADD_ENDPOINT;
         URI uri = new URI(baseUrl);
 
-        ReportMasterDTO reportMasterDTO = new ReportMasterDTO("warehouse1","execution",
-                "IBM","08:00:00","false");
+        ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
+        reportMasterDTO.setReportName("warehouse3");
+        reportMasterDTO.setExecution("execution");
+        reportMasterDTO.setServer("IBM");
+        reportMasterDTO.setIntervalTime("08:00:00");
+        reportMasterDTO.setIsInteractive("false");
 
         ResponseEntity<ReportMasterDTO> result = restTemplate.postForEntity(uri, reportMasterDTO, ReportMasterDTO.class);
         //Verify request succeed
@@ -60,7 +64,7 @@ public class Stepdef {
         assertEquals("IBM", reportMasterDTOResponse.getServer());
         assertEquals("execution", reportMasterDTOResponse.getExecution());
         assertEquals("false", reportMasterDTOResponse.getIsInteractive());
-        assertEquals("warehouse1", reportMasterDTOResponse.getReportName());
+        assertEquals("warehouse3", reportMasterDTOResponse.getReportName());
         assertEquals("08:00:00", reportMasterDTOResponse.getIntervalTime());
 
 

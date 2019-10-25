@@ -2,7 +2,6 @@ package com.wyncore.mysql.rest.api.controller;
 
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
-import com.wyncore.mysql.rest.api.response.SuccessResponse;
 import com.wyncore.mysql.rest.api.service.ReportMasterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -23,11 +23,13 @@ public class ReportMasterService {
         reportMasterObject.setInteractive(Boolean.parseBoolean(reportMasterDTO.getIsInteractive()));
         reportMasterObject.setReportName(reportMasterDTO.getReportName());
         reportMasterObject.setServer(reportMasterDTO.getServer());
-        reportMasterObject.setIntervalTime(java.sql.Time.valueOf(reportMasterDTO.getIntervalTime()));
+        reportMasterObject.setIntervalTime(Integer.parseInt(reportMasterDTO.getIntervalTime()));
+        reportMasterObject.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
+        reportMasterObject.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
         reportMasterRepository.save(reportMasterObject);
         reportMasterDTO.setId(reportMasterObject.getReportId());
         System.out.println("report id is");
-        System.out.println(reportMasterObject.getReportId());
+        System.out.println((reportMasterObject.getReportId()));
         return reportMasterDTO;
     }
 }
