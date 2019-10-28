@@ -19,8 +19,9 @@ class ReportMasterIdTest {
         reportMasterId.setReportName("warehouse1");
         assertEquals(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"), reportMasterId.getReportId());
         assertEquals("warehouse1", reportMasterId.getReportName());
-
-
+        ReportMasterId reportMasterId1 = new ReportMasterId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"), "warehouse1");
+        assertEquals(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"), reportMasterId.getReportId());
+        assertEquals("warehouse1", reportMasterId.getReportName());
     }
 
 }

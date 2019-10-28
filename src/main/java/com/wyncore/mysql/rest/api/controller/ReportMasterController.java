@@ -29,4 +29,5 @@ public class ReportMasterController {
     public ResponseEntity<ReportMasterDTO> createReport(@Valid @RequestBody ReportMasterDTO reportMasterDTO){
         return ResponseEntity.ok(reportMasterService.addReport(reportMasterDTO));
     }
+
 }

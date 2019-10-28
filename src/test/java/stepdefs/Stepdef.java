@@ -42,7 +42,10 @@ public class Stepdef {
         reportMasterDTO.setReportName("warehouse3");
         reportMasterDTO.setExecution("execution");
         reportMasterDTO.setServer("IBM");
-        reportMasterDTO.setIntervalTime("08:00:00");
+        reportMasterDTO.setIntervalTime("08");
+        reportMasterDTO.setStartTime("08:00:00");
+        reportMasterDTO.setEndTime("09:00:00");
+
         reportMasterDTO.setIsInteractive("false");
 
         ResponseEntity<ReportMasterDTO> result = restTemplate.postForEntity(uri, reportMasterDTO, ReportMasterDTO.class);
@@ -65,7 +68,7 @@ public class Stepdef {
         assertEquals("execution", reportMasterDTOResponse.getExecution());
         assertEquals("false", reportMasterDTOResponse.getIsInteractive());
         assertEquals("warehouse3", reportMasterDTOResponse.getReportName());
-        assertEquals("08:00:00", reportMasterDTOResponse.getIntervalTime());
+        assertEquals("08", reportMasterDTOResponse.getIntervalTime());
 
 
     }
