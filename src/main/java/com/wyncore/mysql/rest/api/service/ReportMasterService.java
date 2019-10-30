@@ -28,8 +28,8 @@ public class ReportMasterService {
         reportMasterObject.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
         reportMasterRepository.save(reportMasterObject);
         reportMasterDTO.setId(reportMasterObject.getReportId());
-        System.out.println("report id is");
-        System.out.println((reportMasterObject.getReportId()));
+        //System.out.println("report id is");
+        //System.out.println((reportMasterObject.getReportId()));
         return reportMasterDTO;
     }
 }

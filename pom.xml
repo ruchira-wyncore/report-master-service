@@ -171,6 +171,7 @@
                             </rules>
                             <excludes>
                                 <exclude>/com/wyncore/mysql/rest/api/RestfulSqlCallsController.class</exclude>
+                                <exclude>/com/wyncore/mysql/rest/api/config/SpringConfig.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
