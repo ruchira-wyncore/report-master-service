@@ -17,7 +17,7 @@ public class ReportMasterDTO {
     /* used to send  database id */
     private UUID id;
 
-    @JsonProperty("report_name")
+    @JsonProperty("reportName")
     private String reportName;
 
     @JsonProperty("execution")
@@ -26,16 +26,16 @@ public class ReportMasterDTO {
     @JsonProperty("server")
     private String server;
 
-    @JsonProperty("interval_time")
+    @JsonProperty("intervalTime")
     private String intervalTime;
 
     @JsonProperty("interactive")
     private String isInteractive;
 
-    @JsonProperty("start_time")
+    @JsonProperty("startTime")
     private String startTime;
 
-    @JsonProperty("end_time")
+    @JsonProperty("endTime")
     private String endTime;
 
     public UUID getId() {

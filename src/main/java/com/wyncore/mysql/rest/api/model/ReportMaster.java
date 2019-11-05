@@ -28,9 +28,9 @@ public class ReportMaster implements Serializable {
     private UUID reportId;
 
     @Id
-    @Column(name = "report_name")
-    @NotEmpty(message = "report_name can not be empty.")
-    @Size(max = 250, message = "report_name can not be more than 250 characters.")
+    @Column(name = "reportName")
+    @NotEmpty(message = "reportName can not be empty.")
+    @Size(max = 250, message = "reportName can not be more than 250 characters.")
     private String reportName;
 
     @Column(name = "execution")
@@ -43,20 +43,20 @@ public class ReportMaster implements Serializable {
     @Size(max = 250, message = "server can not be more than 250 characters.")
     private String server;
 
-    @Column(name = "interval_time")
-    @NotNull(message = "interval_time can not be empty.")
+    @Column(name = "intervalTime")
+    @NotNull(message = "intervalTime can not be empty.")
     private int intervalTime;
 
     @Column(name = "interactive")
     @NotNull(message = "interactive can not be empty.")
     private Boolean isInteractive;
 
-    @Column(name = "start_time")
-    @NotNull(message = "start_time can not be empty.")
+    @Column(name = "startTime")
+    @NotNull(message = "startTime can not be empty.")
     private Time startTime;
 
-    @Column(name = "end_time")
-    @NotNull(message = "end_time can not be empty.")
+    @Column(name = "endTime")
+    @NotNull(message = "endTime can not be empty.")
     private Time endTime;
 
 

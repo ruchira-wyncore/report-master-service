@@ -23,13 +23,13 @@ Run the following commands
 raw of type application/json.
 
 3)In the body type the following example:
-{"report_name":"warehouse9_report",
+{"reportName":"warehouse9_report",
 "execution":"executable",
 "server":"IBM",
-"interval_time":"08",
+"intervalTime":"08",
 "interactive":"false",
-"start_time":"08:00:00",
-"end_time":"09:00:00"
+"startTime":"08:00:00",
+"endTime":"09:00:00"
 }
 
 4)Once you press the post you should see a status ok and should see this record being
