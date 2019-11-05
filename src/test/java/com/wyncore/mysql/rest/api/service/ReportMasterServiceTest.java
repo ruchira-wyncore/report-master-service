@@ -1,5 +1,6 @@
 package com.wyncore.mysql.rest.api.service;
 
+import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
 import org.junit.jupiter.api.Test;
@@ -8,9 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 class ReportMasterServiceTest {
@@ -22,7 +25,7 @@ class ReportMasterServiceTest {
     private ReportMasterService reportMasterService;
 
     @Test
-    public void testService(){
+    public void testPostService(){
         ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
         ReportMasterDTO reportMasterDTOResult = new ReportMasterDTO();
 
@@ -44,6 +47,12 @@ class ReportMasterServiceTest {
         assertEquals("08:00:00", reportMasterDTOResult.getStartTime());
         assertEquals("09:00:00", reportMasterDTOResult.getEndTime());
 
+    }
+
+    @Test
+    public void testGetService(){
+        List<ReportMaster> reportList = reportMasterService.viewReports();
+        assertNotNull(reportList);
     }
 
 }

@@ -28,6 +28,7 @@ class ReportMasterControllerTest {
     @Test
     public void testController(){
         reportMasterController.createReport(new ReportMasterDTO());
+        reportMasterController.viewAllReports();
 
     }
 

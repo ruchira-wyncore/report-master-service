@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/report/master")
@@ -28,6 +29,16 @@ public class ReportMasterController {
     @Transactional
     public ResponseEntity<ReportMasterDTO> createReport(@Valid @RequestBody ReportMasterDTO reportMasterDTO){
         return ResponseEntity.ok(reportMasterService.addReport(reportMasterDTO));
+    }
+
+    //Get all the records  in report_master table using get
+    @RequestMapping(
+            value = "/get/all",
+            produces = "application/json",
+            method = {RequestMethod.GET})
+    @Transactional
+    public ResponseEntity<List<ReportMaster>> viewAllReports(){
+        return ResponseEntity.ok(reportMasterService.viewReports());
     }
 
 }

@@ -6,6 +6,7 @@ import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -31,5 +32,9 @@ public class ReportMasterService {
         //System.out.println("report id is");
         //System.out.println((reportMasterObject.getReportId()));
         return reportMasterDTO;
+    }
+
+    public List<ReportMaster> viewReports() {
+       return  reportMasterRepository.findAll();
     }
 }
