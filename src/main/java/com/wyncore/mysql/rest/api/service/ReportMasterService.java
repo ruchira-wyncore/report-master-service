@@ -19,6 +19,10 @@ public class ReportMasterService {
     private ReportMasterRepository reportMasterRepository;
 
     public ReportMasterDTO addReport(ReportMasterDTO reportMasterDTO){
+
+        System.out.println("report master DTO");
+        System.out.println(reportMasterDTO.getServer());
+
         ReportMaster reportMasterObject = new ReportMaster();
         reportMasterObject.setExecution(reportMasterDTO.getExecution());
         reportMasterObject.setInteractive(Boolean.parseBoolean(reportMasterDTO.getIsInteractive()));

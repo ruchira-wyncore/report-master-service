@@ -10,7 +10,7 @@ Run the following commands
 
 ```mvn clean install;
 
-   mvn package;
+   mvn packagreport_nme;
    
    mvn spring-boot:run
 ```
