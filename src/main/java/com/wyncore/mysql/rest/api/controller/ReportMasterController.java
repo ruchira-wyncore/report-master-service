@@ -41,4 +41,14 @@ public class ReportMasterController {
         return ResponseEntity.ok(reportMasterService.viewReports());
     }
 
+    //Delete the record in report_master based on report name.
+    @RequestMapping(
+            value = "/delete/{id}",
+            produces = "application/json",
+            method = {RequestMethod.DELETE})
+    @Transactional
+    public void deleteReport(@PathVariable("id") String id){
+        reportMasterService.deleteReportByName(id);
+    }
+
 }

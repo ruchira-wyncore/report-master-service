@@ -18,6 +18,11 @@ public class ReportMasterService {
     @Autowired
     private ReportMasterRepository reportMasterRepository;
 
+    /**
+     * This method adds a report entry in the report_master table.
+     * @param reportMasterDTO:- Object to be added
+     * @return :- The added object
+     */
     public ReportMasterDTO addReport(ReportMasterDTO reportMasterDTO){
 
         System.out.println("report master DTO");
@@ -38,7 +43,20 @@ public class ReportMasterService {
         return reportMasterDTO;
     }
 
+    /**
+     * This method gets all the records from report_master table.
+     * @return :- List of all the records in the table.
+     */
     public List<ReportMaster> viewReports() {
        return  reportMasterRepository.findAll();
+    }
+
+    /**
+     * This method deletes the record from report_master table based on the name of the report.
+     * @param reportName
+     */
+    public void deleteReportByName(String reportName) {
+        ReportMaster record = reportMasterRepository.findByReportName(reportName);
+        reportMasterRepository.delete(record);
     }
 }

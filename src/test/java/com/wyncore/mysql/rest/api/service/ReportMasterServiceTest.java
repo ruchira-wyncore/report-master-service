@@ -55,4 +55,10 @@ class ReportMasterServiceTest {
         assertNotNull(reportList);
     }
 
+    @Test
+    // This test is purely for the purpose of coverage.It doesn't verify any thing.
+    public void testDeleteService(){
+        reportMasterService.deleteReportByName("abc");
+    }
+
 }
