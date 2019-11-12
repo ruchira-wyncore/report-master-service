@@ -1,5 +1,5 @@
 # restful-sql-calls-controller
-This is a java based springboot app and it will handle restful sql calls to add,delete,modify database tables
+This is a java based springboot app and it will handle restful sql calls to add,delete,modify and view database tables
 
 This application starts a server at http://localhost:8080 as its a spring boot application which comes
 with embedded Tomcat server and hence when application is run it starts a server.
@@ -9,8 +9,6 @@ Run the following commands
 
 
 ```mvn clean install;
-
-   mvn packagreport_nme;
    
    mvn spring-boot:run
 ```

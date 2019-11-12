@@ -1,4 +1,4 @@
-Feature:This is a feature file for doing database related operation on Report Master Table
+Feature:This is a feature file for adding a record in Report Master Table
 
 Scenario:Add a record in report master table
 Given A running restful controller application
