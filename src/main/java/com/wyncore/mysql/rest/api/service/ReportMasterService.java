@@ -56,7 +56,7 @@ public class ReportMasterService {
      * @param reportName
      */
     public void deleteReportByName(String reportName) {
-        ReportMaster record = reportMasterRepository.findByReportName(reportName);
-        reportMasterRepository.delete(record);
+        List<ReportMaster> records = reportMasterRepository.findByReportName(reportName);
+        reportMasterRepository.deleteAll(records);
     }
 }
