@@ -1,0 +1,58 @@
+# restful-sql-calls-controller
+This is a java based Spring-Boot app and it will handle restful SQL calls to add, delete, modify and view records from report_master table.
+
+This application starts a server at http://localhost:8080 as its a spring boot application which comes with embedded Tomcat server and hence when application is run it starts a server.
+
+###How to  start the application
+Run the following commands
+
+To compile the application:
+```mvn clean install;
+```
+To run the application:
+```
+   mvn spring-boot:run
+```
+
+###How to  make a post API call to add a record in report_master table.
+
+1)Open postman.
+
+2)Select the method as post and add url as http://localhost:8080/api/report/master/add .Please note that data type should be
+raw of type application/json.
+
+3)In the body type the following example:
+{"reportName":"warehouse9_report",
+"execution":"executable",
+"server":"IBM",
+"intervalTime":"08",
+"interactive":"false",
+"startTime":"08:00:00",
+"endTime":"09:00:00"
+}
+
+4)Once you press the post you should see a status ok and should see this record being returned as response.
+
+Note: You can also use curl method to test the API.
+
+###How to  make a delete API call to delete a record in report_master table based on report name.
+
+1)Open postman.
+
+2)Select the method as post and add url as http://localhost:8080/api/report/master/delete{reportName} .Please note that data type should be
+raw of type application/json. Here in the URL reportName is place holder for the
+name of the report which should be added.
+
+For eg:http://localhost:8080/api/report/master/delete/warehouse9_report
+
+4)Once you press the post you should see a status ok which means this record gets deleted if it exists.You can manually also verify the behavior by going to the MYSQL table and querying it to see whether that particular report name exists.
+
+###Integration/BDD testing using cucumber.
+
+This application is integrated with cucumber.Currently it tests two features.One is to add a record and another one to delete the record based on the report name.To do integration testing using cucumber do the following:
+
+1)Compile and run the application on a terminal as explained in the first
+section of this README.
+
+2)Then open one more terminal and from your IDE run the cucumber runner class. You can do it from the terminal window too. Once the cucumber runs, you should see the
+feature file getting executed and test case being passed successfully.

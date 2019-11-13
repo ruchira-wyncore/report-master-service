@@ -8,7 +8,8 @@ with embedded Tomcat server and hence when application is run it starts a server
 Run the following commands
 
 
-```mvn clean install;
+```
+mvn clean install;
    
    mvn spring-boot:run
 ```

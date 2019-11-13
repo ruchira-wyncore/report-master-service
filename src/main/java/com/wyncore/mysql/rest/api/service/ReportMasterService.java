@@ -3,7 +3,11 @@ package com.wyncore.mysql.rest.api.service;
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +19,11 @@ import java.util.List;
  */
 public class ReportMasterService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ReportMasterService.class);
+
     @Autowired
     private ReportMasterRepository reportMasterRepository;
+
 
     /**
      * This method adds a report entry in the report_master table.
@@ -24,10 +31,6 @@ public class ReportMasterService {
      * @return :- The added object
      */
     public ReportMasterDTO addReport(ReportMasterDTO reportMasterDTO){
-
-        System.out.println("report master DTO");
-        System.out.println(reportMasterDTO.getServer());
-
         ReportMaster reportMasterObject = new ReportMaster();
         reportMasterObject.setExecution(reportMasterDTO.getExecution());
         reportMasterObject.setInteractive(Boolean.parseBoolean(reportMasterDTO.getIsInteractive()));
@@ -38,8 +41,6 @@ public class ReportMasterService {
         reportMasterObject.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
         reportMasterRepository.save(reportMasterObject);
         reportMasterDTO.setId(reportMasterObject.getReportId());
-        //System.out.println("report id is");
-        //System.out.println((reportMasterObject.getReportId()));
         return reportMasterDTO;
     }
 
@@ -56,7 +57,23 @@ public class ReportMasterService {
      * @param reportName
      */
     public void deleteReportByName(String reportName) {
-        List<ReportMaster> records = reportMasterRepository.findByReportName(reportName);
+        List<ReportMaster> records = reportMasterRepository.findAllRecordsByReportName(reportName);
         reportMasterRepository.deleteAll(records);
+    }
+
+
+    public ResponseEntity<?> updateReportByName(String reportName, ReportMasterDTO reportMasterDTO) {
+        ReportMaster reportMasterRecord =  reportMasterRepository.findRecordByReportName(reportName);
+
+        if (reportMasterRecord == null) {
+            logger.error("Unable to update. Record with report name {} not found.", reportName);
+            return new ResponseEntity("Unable to update. Record with report name " + reportName, HttpStatus.NOT_FOUND);
+        }
+        reportMasterRecord.setServer(reportMasterDTO.getServer());
+        reportMasterRecord.setIntervalTime(Integer.parseInt(reportMasterDTO.getIntervalTime()));
+        reportMasterRecord.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
+        reportMasterRecord.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
+        reportMasterRepository.save(reportMasterRecord);
+        return new ResponseEntity<>(reportMasterRecord, HttpStatus.OK);
     }
 }

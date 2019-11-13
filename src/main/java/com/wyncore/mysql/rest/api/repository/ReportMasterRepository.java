@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface ReportMasterRepository extends JpaRepository<ReportMaster, ReportMasterId> {
 
-    List<ReportMaster> findByReportName(String reportName);
+    List<ReportMaster> findAllRecordsByReportName(String reportName);
+    ReportMaster findRecordByReportName(String reportName);
+
 
 }
