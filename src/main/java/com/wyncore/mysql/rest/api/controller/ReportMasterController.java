@@ -16,12 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/report/master")
 /**
- * This is a restful controller which accepts the API calls.
+ * This is a restful controller which accepts the API calls for adding, updating, deleting and viewing the records
+ * from the report_master table.
  */
 public class ReportMasterController {
-
     private static final Logger logger = LoggerFactory.getLogger(ReportMasterController.class);
-
 
     @Autowired
     private ReportMasterService reportMasterService;

@@ -1,6 +1,7 @@
 package stepdefs;
 
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,9 +21,25 @@ public class Stepdef {
     private final String REST_API_URL = "http://localhost:8080";
     private final String ADD_ENDPOINT = "/api/report/master/add";
     private final String DELETE_ENDPOINT = "/api/report/master/delete/warehouse3";
+    private final String UPDATE_SUCCESS_ENDPOINT = "/api/report/master/update/warehouse3";
+    private final String UPDATE_FAILURE_ENDPOINT = "/api/report/master/update/warehouse4";
     private Boolean isAdded = false;
     private Boolean isDeleted = true;
+    private Boolean isUpdated = true;
     private ReportMasterDTO reportMasterDTOResponse = new ReportMasterDTO();
+    private ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
+
+
+    @Before
+    public void init(){
+        reportMasterDTO.setReportName("warehouse3");
+        reportMasterDTO.setExecution("execution");
+        reportMasterDTO.setServer("IBM");
+        reportMasterDTO.setIntervalTime("08");
+        reportMasterDTO.setStartTime("08:00:00");
+        reportMasterDTO.setEndTime("09:00:00");
+        reportMasterDTO.setIsInteractive("false");
+    }
 
     @Given("^A running restful controller application$")
     public void a_running_restful_controller_application()  {
@@ -39,15 +56,7 @@ public class Stepdef {
         final String baseUrl = REST_API_URL+ADD_ENDPOINT;
         URI uri = new URI(baseUrl);
 
-        ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
-        reportMasterDTO.setReportName("warehouse3");
-        reportMasterDTO.setExecution("execution");
-        reportMasterDTO.setServer("IBM");
-        reportMasterDTO.setIntervalTime("08");
-        reportMasterDTO.setStartTime("08:00:00");
-        reportMasterDTO.setEndTime("09:00:00");
 
-        reportMasterDTO.setIsInteractive("false");
 
         ResponseEntity<ReportMasterDTO> result = restTemplate.postForEntity(uri, reportMasterDTO, ReportMasterDTO.class);
         //Verify request succeed
@@ -88,4 +97,42 @@ public class Stepdef {
     public void the_record_is_deleted() {
         assertTrue(isDeleted, "true");
     }
+
+    @When("^An update request is received to update an existing record in the table$")
+    public void an_update_request_is_received_to_update_an_existing_record_in_the_table() throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+        final String baseUrl = REST_API_URL+UPDATE_SUCCESS_ENDPOINT;
+        URI uri = new URI(baseUrl);
+        reportMasterDTO.setServer("LINUX");
+        try{
+            restTemplate.put(uri, reportMasterDTO);
+        }catch (RestClientException E){
+            isUpdated = false;
+        }
+    }
+
+    @When("^An update request is received to update a non existing record in the table$")
+    public void an_update_request_is_received_to_update_a_non_existing_record_in_the_table() throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+        final String baseUrl = REST_API_URL+UPDATE_FAILURE_ENDPOINT;
+        URI uri = new URI(baseUrl);
+        reportMasterDTO.setServer("LINUX");
+        try{
+            restTemplate.put(uri, reportMasterDTO);
+        }catch (RestClientException E){
+            isUpdated = false;
+        }
+
+    }
+
+    @Then("^the record is updated\\.$")
+    public void the_record_is_updated() {
+        assertTrue(isUpdated, "true");
+    }
+
+    @Then("^the record is not updated\\.$")
+    public void the_record_is_not_updated()  {
+        assertTrue(isUpdated, "false");
+    }
+
 }

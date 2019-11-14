@@ -1,6 +1,6 @@
-Feature:This is a feature file for adding a record in Report Master Table
+Feature: This is a feature file for adding a record in Report Master Table
 
-Scenario:Add a record in report master table
+Scenario: Add a record in report master table
 Given A running restful controller application
 When A post request is received to add a new valid record in the table
 Then the record is added

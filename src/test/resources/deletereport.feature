@@ -1,6 +1,6 @@
-Feature:This is a feature file for deleting a record in  Report Master Table
+Feature: This is a feature file for deleting a record in  Report Master Table
 
-Scenario:Delete a record in report master table based on report name.
+Scenario: Delete a record in report master table based on report name
 Given A running restful controller application
 When A post request is received to add a new valid record in the table
 Then the record is added
