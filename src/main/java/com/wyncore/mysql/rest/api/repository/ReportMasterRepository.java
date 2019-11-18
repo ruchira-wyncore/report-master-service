@@ -7,14 +7,23 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
-@Repository
 /**
- * This is the repository class used by JPA to connect to DB
+ * This is the repository class used by JPA to connect to DB.
  */
+@Repository
 public interface ReportMasterRepository extends JpaRepository<ReportMaster, ReportMasterId> {
-
+    /**
+     * Find all records based on a given report name.
+     * @param reportName :- Report Name
+     * @return :- List of records.
+     */
     List<ReportMaster> findAllRecordsByReportName(String reportName);
+
+    /**
+     * Find a record based on report name.
+     * @param reportName :- Report Name
+     * @return :- Record with the given report name.
+     */
     ReportMaster findRecordByReportName(String reportName);
 
 

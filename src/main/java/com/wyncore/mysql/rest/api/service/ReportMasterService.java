@@ -12,14 +12,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
-@Service
 /**
  * This is the service class which is used to save the record in report master table.
  */
+@Service
 public class ReportMasterService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReportMasterService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReportMasterService.class);
 
     @Autowired
     private ReportMasterRepository reportMasterRepository;
@@ -27,10 +26,10 @@ public class ReportMasterService {
 
     /**
      * This method adds a report entry in the report_master table.
-     * @param reportMasterDTO:- Object to be added
+     * @param reportMasterDTO :- Object to be added
      * @return :- The added object
      */
-    public ReportMasterDTO addReport(ReportMasterDTO reportMasterDTO){
+    public ReportMasterDTO addReport(final ReportMasterDTO reportMasterDTO) {
         ReportMaster reportMasterObject = new ReportMaster();
         reportMasterObject.setExecution(reportMasterDTO.getExecution());
         reportMasterObject.setInteractive(Boolean.parseBoolean(reportMasterDTO.getIsInteractive()));
@@ -54,19 +53,24 @@ public class ReportMasterService {
 
     /**
      * This method deletes the record from report_master table based on the name of the report.
-     * @param reportName
+     * @param reportName :- Report Name
      */
-    public void deleteReportByName(String reportName) {
+    public void deleteReportByName(final String reportName) {
         List<ReportMaster> records = reportMasterRepository.findAllRecordsByReportName(reportName);
         reportMasterRepository.deleteAll(records);
     }
 
-
-    public ResponseEntity<?> updateReportByName(String reportName, ReportMasterDTO reportMasterDTO) {
+    /**
+     * This method updates a record based on report name by using PUT.
+     * @param reportName : Name of the report.
+     * @param reportMasterDTO :- The JSON representation of the data to be updated.
+     * @return :- The updated record.
+     */
+    public ResponseEntity<?> updateReportByName(final String reportName, final ReportMasterDTO reportMasterDTO) {
         ReportMaster reportMasterRecord =  reportMasterRepository.findRecordByReportName(reportName);
 
         if (reportMasterRecord == null) {
-            logger.error("Unable to update. Record with report name {} not found.", reportName);
+            LOGGER.error("Unable to update. Record with report name {} not found.", reportName);
             return new ResponseEntity("Unable to update. Record with report name " + reportName, HttpStatus.NOT_FOUND);
         }
         reportMasterRecord.setServer(reportMasterDTO.getServer());

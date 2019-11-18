@@ -83,7 +83,7 @@
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
+        <!--module name="JavadocVariable"/ -->
         <module name="JavadocStyle"/>
 
         <!-- Checks for Naming Conventions.                  -->
@@ -109,9 +109,8 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
         <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <!--module name="ParameterNumber"/-->
 
         <!-- Checks for whitespace                               -->
         <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -144,7 +143,6 @@
         <module name="AvoidInlineConditionals"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
