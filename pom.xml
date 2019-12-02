@@ -185,6 +185,7 @@
                             <excludes>
                                 <exclude>/com/wyncore/mysql/rest/api/RestfulSqlCallsController.class</exclude>
                                 <exclude>/com/wyncore/mysql/rest/api/config/SpringConfig.class</exclude>
+                                <exclude>/com/wyncore/mysql/rest/api/constants/ErrorCode.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>

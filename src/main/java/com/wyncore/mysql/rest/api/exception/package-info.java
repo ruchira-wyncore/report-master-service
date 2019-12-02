@@ -1,0 +1,1 @@
+package com.wyncore.mysql.rest.api.exception;
