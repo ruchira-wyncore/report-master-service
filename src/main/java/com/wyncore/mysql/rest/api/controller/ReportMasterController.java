@@ -1,11 +1,13 @@
 package com.wyncore.mysql.rest.api.controller;
 
+import com.wyncore.mysql.rest.api.exception.DbException;
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.service.ReportMasterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -92,8 +94,13 @@ public class ReportMasterController {
                                           @RequestBody final ReportMasterDTO reportMasterDTO) {
         LOGGER.info("PUT API is called to update an existing record in the database table"
                     + " for the report name {}", id);
-        return ResponseEntity.ok(
-                              reportMasterService.updateReportByName(id, reportMasterDTO));
+        try{
+            ResponseEntity<?>responseEntity = reportMasterService.updateReportByName(id, reportMasterDTO);
+            return responseEntity;
+        } catch (DbException e) {
+             return new ResponseEntity("Unable to update. Record with report name " + id, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
     }
 
 }

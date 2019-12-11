@@ -1,5 +1,6 @@
 package com.wyncore.mysql.rest.api.service;
 
+import com.wyncore.mysql.rest.api.exception.DbException;
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
@@ -81,17 +82,26 @@ class ReportMasterServiceTest {
     }
 
     @Test
-    public void testUpdateSuccess(){
+    public void testUpdateSuccess() throws DbException {
         when(reportMasterRepository.findRecordByReportName(any(String.class))).thenReturn(report1);
+        when(reportMasterRepository.save(any())).thenReturn(report1);
         responseEntity = reportMasterService.updateReportByName("warehouse1",reportMasterDTO);
         assertEquals(200, responseEntity.getStatusCodeValue());
-
     }
 
     @Test
-    public void testUpdateFailure(){
-        responseEntity = reportMasterService.updateReportByName("warehouse9",reportMasterDTO);
-        assertEquals(404, responseEntity.getStatusCodeValue());
+    public void testUpdateFailureDueToSaveFailure() {
+        when(reportMasterRepository.findRecordByReportName(any(String.class))).thenReturn(report1);
+        assertThrows(DbException.class, () -> {
+        responseEntity = reportMasterService.updateReportByName("warehouse1",reportMasterDTO);
+        });
+    }
+
+    @Test
+    public void testUpdateFailureDueToRecordNotFound()  {
+        assertThrows(DbException.class, () -> {
+            responseEntity = reportMasterService.updateReportByName("warehouse9",reportMasterDTO);
+        });
     }
 
 }

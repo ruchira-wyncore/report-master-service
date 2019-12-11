@@ -1,5 +1,6 @@
 package com.wyncore.mysql.rest.api.service;
 
+import com.wyncore.mysql.rest.api.exception.DbException;
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.repository.ReportMasterRepository;
@@ -48,7 +49,7 @@ public class ReportMasterService {
      * @return :- List of all the records in the table.
      */
     public List<ReportMaster> viewReports() {
-       return  reportMasterRepository.findAll();
+       return reportMasterRepository.findAll();
     }
 
     /**
@@ -66,18 +67,22 @@ public class ReportMasterService {
      * @param reportMasterDTO :- The JSON representation of the data to be updated.
      * @return :- The updated record.
      */
-    public ResponseEntity<?> updateReportByName(final String reportName, final ReportMasterDTO reportMasterDTO) {
+    public ResponseEntity<?> updateReportByName(final String reportName, final ReportMasterDTO reportMasterDTO)  throws DbException {
         ReportMaster reportMasterRecord =  reportMasterRepository.findRecordByReportName(reportName);
 
         if (reportMasterRecord == null) {
             LOGGER.error("Unable to update. Record with report name {} not found.", reportName);
-            return new ResponseEntity("Unable to update. Record with report name " + reportName, HttpStatus.NOT_FOUND);
+            throw new DbException("Unable to update as the record is not found");
+           // return new ResponseEntity("Unable to update. Record with report name " + reportName, HttpStatus.NOT_FOUND);
         }
         reportMasterRecord.setServer(reportMasterDTO.getServer());
         reportMasterRecord.setIntervalTime(Integer.parseInt(reportMasterDTO.getIntervalTime()));
         reportMasterRecord.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
         reportMasterRecord.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
-        reportMasterRepository.save(reportMasterRecord);
+        ReportMaster updatedRecord = reportMasterRepository.save(reportMasterRecord);
+        if(updatedRecord == null){
+            throw new DbException("Unable to save the updated record.");
+        }
         return new ResponseEntity<>(reportMasterRecord, HttpStatus.OK);
     }
 }

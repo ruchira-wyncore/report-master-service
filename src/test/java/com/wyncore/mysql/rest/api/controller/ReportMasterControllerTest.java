@@ -2,6 +2,7 @@ package com.wyncore.mysql.rest.api.controller;
 
 
 import ch.qos.logback.core.spi.LifeCycle;
+import com.wyncore.mysql.rest.api.exception.DbException;
 import com.wyncore.mysql.rest.api.model.ReportMaster;
 import com.wyncore.mysql.rest.api.model.ReportMasterDTO;
 import com.wyncore.mysql.rest.api.service.ReportMasterService;
@@ -106,7 +107,7 @@ class ReportMasterControllerTest {
     }
 
     @Test
-    public void testUpdateByReportName() {
+    public void testUpdateByReportName() throws DbException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         when(reportMasterService.updateReportByName(any(String.class), any(ReportMasterDTO.class))).thenReturn(new ResponseEntity(report1, HttpStatus.OK));
