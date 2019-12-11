@@ -25,9 +25,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -45,9 +48,11 @@ class ReportMasterControllerTest {
     private ReportMasterDTO reportMasterDTO = new ReportMasterDTO();
 
 
-
     @BeforeEach
     public void setup(){
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
         report1.setExecution("execution");
         report1.setReportId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
         report1.setIntervalTime(1234);
@@ -77,19 +82,15 @@ class ReportMasterControllerTest {
     }
 
     @Test
-    public void testPost(){
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+    public void testPost() throws DbException {
         when(reportMasterService.addReport(any(ReportMasterDTO.class))).thenReturn(reportMasterDTO);
-        ResponseEntity<ReportMasterDTO> responseEntity = reportMasterController.createReport(reportMasterDTO);
+        ResponseEntity<?> responseEntity = reportMasterController.createReport(reportMasterDTO);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
-        assertThat(responseEntity.getBody().getReportName().equals("warehouse1"));
+        assertThat(responseEntity.getBody().toString().contains("warehouse1"));
     }
 
     @Test
     public void testGetAll(){
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         List <ReportMaster> list = new ArrayList<>();
         list.add(report1);
         list.add(report2);
@@ -101,17 +102,27 @@ class ReportMasterControllerTest {
 
     @Test
     public void testDeleteByReportName() {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         reportMasterController.deleteReport("abc");
     }
 
     @Test
     public void testUpdateByReportName() throws DbException {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
         when(reportMasterService.updateReportByName(any(String.class), any(ReportMasterDTO.class))).thenReturn(new ResponseEntity(report1, HttpStatus.OK));
         ResponseEntity<?> responseEntity = reportMasterController.updateRecord("warehouse1",reportMasterDTO);
         assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    public void testUpdateByReportNameFails() throws DbException {
+        when(reportMasterService.updateReportByName(any(String.class), any(ReportMasterDTO.class))).thenThrow(new DbException());
+        ResponseEntity<?> responseEntity = reportMasterController.updateRecord("warehouse9",reportMasterDTO);
+        assertTrue(responseEntity.getBody().toString().contains("Unable to update. Record with report name"));
+    }
+
+    @Test
+    public void testPostFailure() throws DbException {
+        when(reportMasterService.addReport( any(ReportMasterDTO.class))).thenThrow(new DbException());
+        ResponseEntity<?> responseEntity = reportMasterController.createReport(reportMasterDTO);
+        assertTrue(responseEntity.getBody().toString().contains("Unable to add the new record due to the following error "));
     }
 }

@@ -57,7 +57,8 @@ class ReportMasterServiceTest {
     }
 
     @Test
-    public void testPostService(){
+    public void testPostServiceSuccessful() throws DbException {
+        when(reportMasterRepository.save(any())).thenReturn(report1);
         reportMasterDTOResult = reportMasterService.addReport(reportMasterDTO);
         assertEquals("execution", reportMasterDTOResult.getExecution());
         assertEquals("false", reportMasterDTOResult.getIsInteractive());
@@ -101,6 +102,13 @@ class ReportMasterServiceTest {
     public void testUpdateFailureDueToRecordNotFound()  {
         assertThrows(DbException.class, () -> {
             responseEntity = reportMasterService.updateReportByName("warehouse9",reportMasterDTO);
+        });
+    }
+
+    @Test
+    public void testPostFailureDueToSaveFailure()  {
+        assertThrows(DbException.class, () -> {
+            ReportMasterDTO addedDTO = reportMasterService.addReport(reportMasterDTO);
         });
     }
 

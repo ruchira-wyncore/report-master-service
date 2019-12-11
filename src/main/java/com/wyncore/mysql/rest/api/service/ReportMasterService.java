@@ -30,7 +30,7 @@ public class ReportMasterService {
      * @param reportMasterDTO :- Object to be added
      * @return :- The added object
      */
-    public ReportMasterDTO addReport(final ReportMasterDTO reportMasterDTO) {
+    public ReportMasterDTO addReport(final ReportMasterDTO reportMasterDTO) throws DbException {
         ReportMaster reportMasterObject = new ReportMaster();
         reportMasterObject.setExecution(reportMasterDTO.getExecution());
         reportMasterObject.setInteractive(Boolean.parseBoolean(reportMasterDTO.getIsInteractive()));
@@ -39,7 +39,10 @@ public class ReportMasterService {
         reportMasterObject.setIntervalTime(Integer.parseInt(reportMasterDTO.getIntervalTime()));
         reportMasterObject.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
         reportMasterObject.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
-        reportMasterRepository.save(reportMasterObject);
+        ReportMaster addedRecord = reportMasterRepository.save(reportMasterObject);
+        if(addedRecord == null){
+            throw new DbException("Unable to save the new record.");
+        }
         reportMasterDTO.setId(reportMasterObject.getReportId());
         return reportMasterDTO;
     }

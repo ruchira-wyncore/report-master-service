@@ -42,10 +42,14 @@ public class ReportMasterController {
             produces = "application/json",
             method = {RequestMethod.GET, RequestMethod.POST})
     @Transactional
-    public ResponseEntity<ReportMasterDTO> createReport(
+    public ResponseEntity<?> createReport(
             @Valid @RequestBody final ReportMasterDTO reportMasterDTO) {
         LOGGER.info("Post API being called to add record");
-        return ResponseEntity.ok(reportMasterService.addReport(reportMasterDTO));
+        try {
+            return ResponseEntity.ok(reportMasterService.addReport(reportMasterDTO));
+        } catch (DbException e) {
+            return new ResponseEntity("Unable to add the new record due to the following error  " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -95,8 +99,7 @@ public class ReportMasterController {
         LOGGER.info("PUT API is called to update an existing record in the database table"
                     + " for the report name {}", id);
         try{
-            ResponseEntity<?>responseEntity = reportMasterService.updateReportByName(id, reportMasterDTO);
-            return responseEntity;
+            return reportMasterService.updateReportByName(id, reportMasterDTO);
         } catch (DbException e) {
              return new ResponseEntity("Unable to update. Record with report name " + id, HttpStatus.INTERNAL_SERVER_ERROR);
 
