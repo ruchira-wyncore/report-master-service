@@ -8,10 +8,10 @@ This application starts a server at http://localhost:8080 as its a spring boot a
 Run the following commands
 ```
 # To build the application
-mvn clean install;
+*mvn clean install;*
 
-# To run the application
-mvn spring-boot:run
+# To run the application you also need to provide the password for your database in MYSQL.
+*mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.password=your_password_for_db"*
 ```
 
 ### How to  make a post API call to add a record in report_master table.
