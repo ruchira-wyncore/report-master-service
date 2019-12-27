@@ -2,8 +2,8 @@ package com.wyncore.mysql.rest.api.exception;
 
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 
-import static com.wyncore.mysql.rest.api.constants.ErrorCode.RESOURCE_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ApiExceptionTest {
@@ -11,7 +11,7 @@ class ApiExceptionTest {
     @Test
     public void testAllMethods() {
         assertThrows(ApiException.class, () -> {
-            throw new ApiException(RESOURCE_NOT_FOUND);
+            throw new ApiException(HttpStatus.NOT_FOUND.toString());
         });
         assertThrows(ApiException.class, () -> {
             throw new ApiException();

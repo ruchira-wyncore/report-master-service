@@ -29,6 +29,7 @@ public class ReportMasterService {
      * This method adds a report entry in the report_master table.
      * @param reportMasterDTO :- Object to be added
      * @return :- The added object
+     * @throws DbException :- throws database exception
      */
     public ReportMasterDTO addReport(final ReportMasterDTO reportMasterDTO) throws DbException {
         ReportMaster reportMasterObject = new ReportMaster();
@@ -40,7 +41,7 @@ public class ReportMasterService {
         reportMasterObject.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
         reportMasterObject.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
         ReportMaster addedRecord = reportMasterRepository.save(reportMasterObject);
-        if(addedRecord == null){
+        if (addedRecord == null) {
             throw new DbException("Unable to save the new record.");
         }
         reportMasterDTO.setId(reportMasterObject.getReportId());
@@ -69,6 +70,7 @@ public class ReportMasterService {
      * @param reportName : Name of the report.
      * @param reportMasterDTO :- The JSON representation of the data to be updated.
      * @return :- The updated record.
+     * @throws DbException :- throws database exception.
      */
     public ResponseEntity<?> updateReportByName(final String reportName, final ReportMasterDTO reportMasterDTO)  throws DbException {
         ReportMaster reportMasterRecord =  reportMasterRepository.findRecordByReportName(reportName);
@@ -83,7 +85,7 @@ public class ReportMasterService {
         reportMasterRecord.setStartTime(java.sql.Time.valueOf(reportMasterDTO.getStartTime()));
         reportMasterRecord.setEndTime(java.sql.Time.valueOf(reportMasterDTO.getEndTime()));
         ReportMaster updatedRecord = reportMasterRepository.save(reportMasterRecord);
-        if(updatedRecord == null){
+        if (updatedRecord == null) {
             throw new DbException("Unable to save the updated record.");
         }
         return new ResponseEntity<>(reportMasterRecord, HttpStatus.OK);

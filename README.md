@@ -63,4 +63,5 @@ This application uses logback and the app log is generated under target/logs fol
 
 ### CheckStyle 
 
-This application is integrated with checkstyle plugin to engorce coding guidelines.Currently it follows SUN's specification.
+This application is integrated with checkstyle plugin to enforce coding guidelines.Currently it follows SUN's specification.
+The build will fail if the checkstyle specifications are not met.

@@ -98,7 +98,7 @@ public class ReportMasterController {
                                           @RequestBody final ReportMasterDTO reportMasterDTO) {
         LOGGER.info("PUT API is called to update an existing record in the database table"
                     + " for the report name {}", id);
-        try{
+        try {
             return reportMasterService.updateReportByName(id, reportMasterDTO);
         } catch (DbException e) {
              return new ResponseEntity("Unable to update. Record with report name " + id, HttpStatus.INTERNAL_SERVER_ERROR);
