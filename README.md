@@ -65,3 +65,7 @@ This application uses logback and the app log is generated under target/logs fol
 
 This application is integrated with checkstyle plugin to enforce coding guidelines.Currently it follows SUN's specification.
 The build will fail if the checkstyle specifications are not met.
+
+### PMD 
+
+This application is integrated with PMD plugin to do static code analysis.The build will fail if PMD errors are not fixed.
