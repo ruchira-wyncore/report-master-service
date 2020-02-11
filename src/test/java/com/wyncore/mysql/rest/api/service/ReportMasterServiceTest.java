@@ -38,7 +38,7 @@ class ReportMasterServiceTest {
   @BeforeEach
   public void setup() {
     reportMasterDTO.setExecution("execution");
-    reportMasterDTO.setId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+    reportMasterDTO.setId("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
     reportMasterDTO.setIntervalTime("08");
     reportMasterDTO.setIsInteractive("false");
     reportMasterDTO.setServer("IBM");
@@ -47,7 +47,7 @@ class ReportMasterServiceTest {
     reportMasterDTO.setEndTime("09:00:00");
 
     report1.setExecution("execution");
-    report1.setReportId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+    report1.setReportId("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
     report1.setIntervalTime(1234);
     report1.setInteractive(false);
     report1.setServer("IBM");

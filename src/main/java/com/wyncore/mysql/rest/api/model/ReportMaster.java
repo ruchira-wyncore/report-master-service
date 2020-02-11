@@ -3,10 +3,8 @@ package com.wyncore.mysql.rest.api.model;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Objects;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
@@ -14,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * This is a POJO class for report-master fields in the mysql table. Each field is mapped to the one
@@ -26,12 +23,13 @@ import org.hibernate.annotations.GenericGenerator;
 public class ReportMaster implements Serializable {
 
   private static final int MAX_STRING_LENGTH = 250;
+  private static final int MAX_ID_LENGTH =  150;
 
   @Id
-  @GeneratedValue(generator = "uuid")
-  @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "report_id", columnDefinition = "BINARY(16)")
-  private UUID reportId;
+  @Column(name = "report_id")
+  @NotEmpty(message = "reportId can not be empty.")
+  @Size(max = MAX_ID_LENGTH, message = "reportId can not be more than 150 characters.")
+  private String reportId;
 
   @Id
   @Column(name = "reportname")
@@ -77,7 +75,7 @@ public class ReportMaster implements Serializable {
    * @param startTime    :- start time.
    * @param endTime      :- end time.
    */
-  public ReportMaster(final UUID reportId, final @NotBlank String reportName,
+  public ReportMaster(final String reportId, final @NotBlank String reportName,
       final @NotBlank String execution,
       final @NotBlank String server,
       final @NotBlank int intervalTime,
@@ -106,7 +104,7 @@ public class ReportMaster implements Serializable {
    *
    * @return report ID
    */
-  public UUID getReportId() {
+  public String getReportId() {
     return reportId;
   }
 
@@ -115,7 +113,7 @@ public class ReportMaster implements Serializable {
    *
    * @param reportId : Report ID of the report.
    */
-  public void setReportId(final UUID reportId) {
+  public void setReportId(final String reportId) {
     this.reportId = reportId;
   }
 
@@ -245,7 +243,7 @@ public class ReportMaster implements Serializable {
     this.endTime = endTime;
   }
 
-  /**
+    /**
    * comparison of objects.
    *
    * @param o :- object to be compared.
@@ -278,7 +276,7 @@ public class ReportMaster implements Serializable {
   @Override
   public int hashCode() {
     return Objects.hash(reportId, reportName, execution, server,
-        intervalTime, isInteractive, startTime, endTime);
+         intervalTime, isInteractive, startTime, endTime);
   }
 
 }

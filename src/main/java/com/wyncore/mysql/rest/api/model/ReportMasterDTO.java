@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.UUID;
 
 /**
  * This is the json class which  is used to pass the report master object as json objects over the
@@ -15,7 +14,8 @@ import java.util.UUID;
 public class ReportMasterDTO {
 
   /* used to send  database id */
-  private UUID id;
+  @JsonProperty("reportid")
+  private String id;
 
   @JsonProperty("reportname")
   private String reportName;
@@ -39,20 +39,20 @@ public class ReportMasterDTO {
   private String endTime;
 
   /**
-   * Getter for UUID.
+   * Getter for report ID.
    *
-   * @return :- UUID
+   * @return :- report ID
    */
-  public UUID getId() {
+  public String getId() {
     return id;
   }
 
   /**
-   * Setter for UUID.
+   * Setter for Report ID.
    *
-   * @param id :- UUID
+   * @param id :- Report ID
    */
-  public void setId(final UUID id) {
+  public void setId(final String id) {
     this.id = id;
   }
 
@@ -181,4 +181,5 @@ public class ReportMasterDTO {
   public void setEndTime(final String endTime) {
     this.endTime = endTime;
   }
-}
+
+ }

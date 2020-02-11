@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.wyncore.mysql.rest.api"})
 @EntityScan("com.wyncore.mysql.rest.api.model")
 @EnableJpaRepositories("com.wyncore.mysql.rest.api.repository")
-public class RestfulSqlCallsController {
+public class ReportMasterApplication {
 
   /**
    * Main method.
@@ -22,6 +22,6 @@ public class RestfulSqlCallsController {
    * @param args :- arguments passed when application comes up.
    */
   public static void main(final String[] args) {
-    SpringApplication.run(RestfulSqlCallsController.class, args);
+    SpringApplication.run(ReportMasterApplication.class, args);
   }
 }

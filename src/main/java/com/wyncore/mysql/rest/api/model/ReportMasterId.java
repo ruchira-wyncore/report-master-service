@@ -2,15 +2,14 @@ package com.wyncore.mysql.rest.api.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
- * As report_master table has  composite key UUID and report name , this is an ID class which is
+ * As report_master table has  composite key Report ID and report name , this is an ID class which is
  * used by JPA whenever the tables use composite keys.This class defines the composite key.
  */
 public class ReportMasterId implements Serializable {
 
-  private UUID reportId;
+  private String reportId;
   private String reportName;
 
   /**
@@ -22,10 +21,10 @@ public class ReportMasterId implements Serializable {
   /**
    * Parametrized constructor.
    *
-   * @param reportId   :- UUID of the report.
+   * @param reportId   :- Report Identifier of the report.
    * @param reportName :- Report Name.
    */
-  public ReportMasterId(final UUID reportId, final String reportName) {
+  public ReportMasterId(final String reportId, final String reportName) {
     this.reportId = reportId;
     this.reportName = reportName;
   }
@@ -62,18 +61,18 @@ public class ReportMasterId implements Serializable {
   /**
    * Getter for report id.
    *
-   * @return :- generated report id.
+   * @return :- gets report id.
    */
-  public UUID getReportId() {
+  public String getReportId() {
     return reportId;
   }
 
   /**
    * Setter for report ID.
    *
-   * @param reportId :- generated UUID.
+   * @param reportId :- report identifier.
    */
-  public void setReportId(final UUID reportId) {
+  public void setReportId(final String reportId) {
     this.reportId = reportId;
   }
 

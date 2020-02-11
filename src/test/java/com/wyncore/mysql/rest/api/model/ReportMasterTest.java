@@ -16,7 +16,7 @@ class ReportMasterTest {
   public void testReportMater() {
     ReportMaster reportMaster = new ReportMaster();
     reportMaster.setExecution("execution");
-    reportMaster.setReportId(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"));
+    reportMaster.setReportId("c81d4e2e-bcf2-11e6-869b-7df92533d2db");
     reportMaster.setIntervalTime(1234);
     reportMaster.setInteractive(false);
     reportMaster.setServer("IBM");
@@ -24,7 +24,7 @@ class ReportMasterTest {
     reportMaster.setStartTime(Time.valueOf("01:00:00"));
     reportMaster.setEndTime(Time.valueOf("02:00:00"));
     assertEquals("execution", reportMaster.getExecution());
-    assertEquals(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"),
+    assertEquals("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
         reportMaster.getReportId());
     assertEquals(false, reportMaster.getInteractive());
     assertEquals("IBM", reportMaster.getServer());
@@ -36,12 +36,15 @@ class ReportMasterTest {
 
   @Test
   public void testEquals_Hash() {
-    ReportMaster x = new ReportMaster(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"),
+    ReportMaster x = new ReportMaster("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
         "warehouse1", "execution", "IBM", 1234, false, Time.valueOf("01:00:00"),
         Time.valueOf("01:00:00"));
-    ReportMaster y = new ReportMaster(UUID.fromString("c81d4e2e-bcf2-11e6-869b-7df92533d2db"),
+    ReportMaster y = new ReportMaster("c81d4e2e-bcf2-11e6-869b-7df92533d2db",
         "warehouse1", "execution", "IBM", 1234, false, Time.valueOf("01:00:00"),
         Time.valueOf("01:00:00"));
+    ReportMaster z = null;
+    Assert.assertFalse(x.equals(z));
+    Assert.assertTrue(x.equals(x));
     Assert.assertTrue(x.equals(y) && y.equals(x));
     Assert.assertTrue(x.hashCode() == y.hashCode());
   }
