@@ -94,4 +94,21 @@ public class ReportMasterService {
     }
     return new ResponseEntity<>(reportMasterRecord, HttpStatus.OK);
   }
+
+  /**
+   * This method finds a record based on report ID and extracts the server field from the record
+   * and returns it.
+   * @param reportId :- Report ID
+   * @return :- server URL if found.
+   * @throws DbException :- If server URL not found it throws DB Exception.
+   */
+  public String getServerUrlByReportId(final String reportId) throws  DbException {
+    ReportMaster reportMasterRecord = reportMasterRepository.findRecordByReportId(reportId);
+    if (reportMasterRecord == null) {
+      LOGGER.error("Unable to find record with report id {} not found.", reportId);
+      throw new DbException("Record Not Found");
+    }
+    return reportMasterRecord.getServer();
+
+  }
 }

@@ -6,7 +6,6 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -18,7 +17,6 @@ import javax.validation.constraints.Size;
  * in the report_master table
  */
 @Entity
-@IdClass(ReportMasterId.class)
 @Table(name = "report_master")
 public class ReportMaster implements Serializable {
 
@@ -31,9 +29,8 @@ public class ReportMaster implements Serializable {
   @Size(max = MAX_ID_LENGTH, message = "reportId can not be more than 150 characters.")
   private String reportId;
 
-  @Id
+
   @Column(name = "reportname")
-  @NotEmpty(message = "reportName can not be empty.")
   @Size(max = MAX_STRING_LENGTH, message = "reportName can not be more than 250 characters.")
   private String reportName;
 
@@ -48,7 +45,6 @@ public class ReportMaster implements Serializable {
   private String server;
 
   @Column(name = "intervaltime")
-  @NotNull(message = "intervalTime can not be empty.")
   private int intervalTime;
 
   @Column(name = "interactive")
@@ -56,11 +52,9 @@ public class ReportMaster implements Serializable {
   private Boolean isInteractive;
 
   @Column(name = "starttime")
-  @NotNull(message = "startTime can not be empty.")
   private Time startTime;
 
   @Column(name = "endtime")
-  @NotNull(message = "endTime can not be empty.")
   private Time endTime;
 
   /**

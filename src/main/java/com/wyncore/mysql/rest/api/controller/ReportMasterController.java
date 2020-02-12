@@ -113,4 +113,27 @@ public class ReportMasterController {
     }
   }
 
+  /**
+   * This is a get method  for getting the server URL based on reportID.
+   * @param id :- Report ID.
+   * @return :- Server URL if present else null.
+   */
+  @RequestMapping(
+      value = "/get/server/{id}",
+      produces = "application/json",
+      method = {RequestMethod.GET})
+  @Transactional
+  public String getServerUrl(@PathVariable("id") final String id) {
+    LOGGER.info("GET API is called to get server URL for the report id {}", id);
+    String serverUrl = null;
+    try {
+      serverUrl =  reportMasterService.getServerUrlByReportId(id);
+      return serverUrl;
+    } catch (DbException e) {
+      LOGGER.error("Cannot find the server URL for a given Report ID");
+      return "URL not found";
+    }
+  }
+
+
 }

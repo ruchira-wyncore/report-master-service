@@ -2,8 +2,11 @@ package com.wyncore.mysql.rest.api.controller;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.wyncore.mysql.rest.api.exception.DbException;
@@ -122,5 +125,19 @@ class ReportMasterControllerTest {
     ResponseEntity<?> responseEntity = reportMasterController.createReport(reportMasterDTO);
     assertTrue(responseEntity.getBody().toString()
         .contains("Unable to add the new record due to the following error "));
+  }
+
+  @Test
+  public void testGetServerUrlSuccess() throws DbException {
+    when(reportMasterService.getServerUrlByReportId(anyString())).thenReturn("as400");
+    String server = reportMasterController.getServerUrl("id");
+    assertEquals("as400", server);
+  }
+
+  @Test
+  public void testGetServerUrlFailure() throws DbException {
+   when(reportMasterService.getServerUrlByReportId(anyString())).thenThrow(new DbException("record not found"));
+    String server = reportMasterController.getServerUrl("id");
+    assertEquals("URL not found", server);
   }
 }

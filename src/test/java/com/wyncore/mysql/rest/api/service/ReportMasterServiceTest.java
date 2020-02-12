@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.wyncore.mysql.rest.api.exception.DbException;
@@ -110,6 +111,20 @@ class ReportMasterServiceTest {
   public void testPostFailureDueToSaveFailure() {
     assertThrows(DbException.class, () -> {
       ReportMasterDTO addedDTO = reportMasterService.addReport(reportMasterDTO);
+    });
+  }
+
+  @Test
+  public void testGetServerUrlSuccess() throws DbException {
+    when(reportMasterRepository.findRecordByReportId(anyString())).thenReturn(report1);
+    String server = reportMasterService.getServerUrlByReportId("id");
+    assertEquals("IBM", server);
+  }
+
+  @Test
+  public void testGetServerUrlFailure()  {
+    assertThrows(DbException.class, () -> {
+    String server = reportMasterService.getServerUrlByReportId("id");
     });
   }
 

@@ -1,5 +1,7 @@
-# restful-sql-calls-controller
-This is a java based Spring boot application and it will handle restful sql calls to add, delete, update and view records in the  MYSQL tables.
+# report-master-service
+This is a java based Spring boot application and it will handle restful sql calls to add, delete, update and view records in the  MYSQL tables.(MVP 1).
+As part of MVP2 a get by ID endpoint is added to return the server URL for a given report-id. This will be called by AS400
+microservices to get a server URL.
 
 This application starts a server at http://localhost:8080 as its a spring boot application which comes with embedded Tomcat server.
 
@@ -42,10 +44,14 @@ In the similar fashion as described above one can perform the PUT, DELETE and GE
 http://localhost:8080/api/report/master/get/all
 
 2) The API URL for the deletion of record based on report name is 
-http://localhost:8080/api/report/master/delete/{id}  where id is the name of the report to be deleted.
+http://localhost:8080/api/report/master/get/server/{id}  where id is the report ID. This call returns a string value which
+will be null if the server URL is not found or will contain the URL string.
 
 3) The API URL for the updating of record based on report name is 
 http://localhost:8080/api/report/master/update/{id}  where id is the name of the report to be updated. The body of this call contains the record to be updated in JSON format as described in the POST section and it returns back thee updated response.
+
+### How to get server URL for a given report ID.
+The API URL for getting server URL  based on report id is 
 
 ### Integration/BDD testing using cucumber.
 
