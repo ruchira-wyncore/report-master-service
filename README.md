@@ -75,3 +75,17 @@ The build will fail if the checkstyle specifications are not met.
 ### PMD 
 
 This application is integrated with PMD plugin to do static code analysis.The build will fail if PMD errors are not fixed.
+
+
+### Health End Point
+
+This application has a healthcheck endpoint configured using spring boot actuator.When the application is up and running please use the following URL
+to get the status pf application health:-
+
+```
+http://localhost:8080/application/health
+```
+
+### Docker File For Containerization
+
+This  application is now dockerized and has its own dockerfile which can be used to build the image and deploy the container.
